@@ -24,6 +24,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Prometheus")
 	float MaxLightTime = 10.0f;
 
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	bool HasLightLeft();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	void TouchedTorch();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -13,12 +13,22 @@ APrometheusCharacter::APrometheusCharacter()
 
 	PrometheusLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("PrometheusLight"));
 	PrometheusLight->SetupAttachment(RootComponent);
+	PrometheusLight->SetIntensity(MaxPrometheusLightLevel);
 }
 
 // Called when the game starts or when spawned
 void APrometheusCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	ResetLightTimer();
+}
+
+bool APrometheusCharacter::HasLightLeft() {
+	return GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) > 0;
+}
+
+void APrometheusCharacter::TouchedTorch() {
+	PrometheusLight->SetIntensity(MaxPrometheusLightLevel);
 	ResetLightTimer();
 }
 

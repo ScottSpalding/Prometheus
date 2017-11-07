@@ -21,8 +21,21 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+//	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, Category = "Prometheus")
+	bool IsLit = false;
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	bool IsTorchLit();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	void SetTorchLit(bool lit);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Prometheus")
+	float MaxPrometheusLightLevel = 2500.0f;
 	
-	
+	UPROPERTY(EditDefaultsOnly, Category = "Prometheus")
+	class UPointLightComponent* PrometheusLight;
+
 };
