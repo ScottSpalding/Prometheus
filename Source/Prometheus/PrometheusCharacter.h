@@ -25,6 +25,9 @@ public:
 	float MaxLightTime = 10.0f;
 
 	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	float GetLightPercent();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
 	bool HasLightLeft();
 
 	UFUNCTION(BlueprintCallable, Category = "Prometheus")

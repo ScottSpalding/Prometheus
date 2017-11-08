@@ -23,6 +23,11 @@ void APrometheusCharacter::BeginPlay()
 	ResetLightTimer();
 }
 
+float APrometheusCharacter::GetLightPercent() {
+	auto lightPercent = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) / MaxLightTime;
+	return (lightPercent > 0) ? lightPercent : 0.0f;
+}
+
 bool APrometheusCharacter::HasLightLeft() {
 	return GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) > 0;
 }
@@ -39,10 +44,10 @@ void APrometheusCharacter::Tick(float DeltaTime)
 	//UE_LOG(LogTemp, Warning, TEXT("DamageAmount=%f, DamageToApply=%f"), DamageAmount, DamageToApply)
 	//UE_LOG(LogTemp, Warning, TEXT("Ticking... "))
 	if (PrometheusLight) {
-		float timerMultipler = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) * MaxLightTime;
+		float timerMultipler = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) / MaxLightTime;
 		if (timerMultipler < 0) timerMultipler = 0;
 		float newIntensity = MaxPrometheusLightLevel * timerMultipler;
-		UE_LOG(LogTemp, Warning, TEXT("timerMultipler=%f, intensity=%f"), timerMultipler, newIntensity)
+		//UE_LOG(LogTemp, Warning, TEXT("timerMultipler=%f, intensity=%f"), timerMultipler, newIntensity)
 		PrometheusLight->SetIntensity(newIntensity);
 	}
 	
