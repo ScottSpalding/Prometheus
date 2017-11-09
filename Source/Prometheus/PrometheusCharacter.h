@@ -33,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Prometheus")
 	void TouchedTorch();
 
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	void ResetLightTimer();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -45,7 +48,6 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-	void ResetLightTimer();
 
 	void LightsOut();
 
