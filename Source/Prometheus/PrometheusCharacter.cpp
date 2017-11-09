@@ -37,6 +37,17 @@ void APrometheusCharacter::TouchedTorch() {
 	ResetLightTimer();
 }
 
+void APrometheusCharacter::HitByMoth() {
+	float timerRemaining = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle);
+	const float damageAmountToTimer = 2.0f;
+	if (timerRemaining <= damageAmountToTimer) {
+		GetWorldTimerManager().ClearTimer(PrometheusTimerHandle);
+	}
+	else {
+		GetWorldTimerManager().SetTimer(PrometheusTimerHandle, this, &APrometheusCharacter::LightsOut, timerRemaining - damageAmountToTimer, false);
+	}
+}
+
 // Called every frame
 void APrometheusCharacter::Tick(float DeltaTime)
 {

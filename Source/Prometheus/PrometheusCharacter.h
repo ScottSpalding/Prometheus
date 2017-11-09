@@ -34,6 +34,9 @@ public:
 	void TouchedTorch();
 
 	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	void HitByMoth();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
 	void ResetLightTimer();
 
 protected:

@@ -12,3 +12,5 @@ Saved
 *.xcodeproj
 *.xcworkspace
 WindowsNoEditor/
+/Prometheus_Prometheus/Prometheus/Content/Paks
+/Prometheus_Prometheus
