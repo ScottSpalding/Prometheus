@@ -38,12 +38,15 @@ void APrometheusCharacter::TouchedTorch() {
 }
 
 void APrometheusCharacter::HitByMoth() {
+	UE_LOG(LogTemp, Warning, TEXT("Hit!"))
 	float timerRemaining = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle);
 	const float damageAmountToTimer = 2.0f;
 	if (timerRemaining <= damageAmountToTimer) {
+		UE_LOG(LogTemp, Warning, TEXT("LOST ALL LIGHT"))
 		GetWorldTimerManager().ClearTimer(PrometheusTimerHandle);
 	}
 	else {
+		UE_LOG(LogTemp, Warning, TEXT("Losing light!  Was %f, is now %f"), timerRemaining, (timerRemaining - damageAmountToTimer))
 		GetWorldTimerManager().SetTimer(PrometheusTimerHandle, this, &APrometheusCharacter::LightsOut, timerRemaining - damageAmountToTimer, false);
 	}
 }
