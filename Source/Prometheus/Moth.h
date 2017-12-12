@@ -9,7 +9,7 @@
 UCLASS()
 class PROMETHEUS_API AMoth : public APawn
 {
-	GENERATED_BODY().cpp
+	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties

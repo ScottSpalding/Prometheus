@@ -55,27 +55,22 @@ void APrometheusCharacter::HitByMoth() {
 void APrometheusCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//UE_LOG(LogTemp, Warning, TEXT("DamageAmount=%f, DamageToApply=%f"), DamageAmount, DamageToApply)
-	//UE_LOG(LogTemp, Warning, TEXT("Ticking... "))
 	if (PrometheusLight) {
 		float timerMultipler = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle) / MaxLightTime;
 		if (timerMultipler < 0) timerMultipler = 0;
 		float newIntensity = MaxPrometheusLightLevel * timerMultipler;
-		//UE_LOG(LogTemp, Warning, TEXT("timerMultipler=%f, intensity=%f"), timerMultipler, newIntensity)
 		PrometheusLight->SetIntensity(newIntensity);
+		
 	}
-	
 }
 
 // Called to bind functionality to input
 void APrometheusCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 void APrometheusCharacter::ResetLightTimer() {
-	//UE_LOG(LogTemp, Warning, TEXT("RESET LIGHT TIMER!"))
 	GetWorldTimerManager().SetTimer(PrometheusTimerHandle, this, &APrometheusCharacter::LightsOut, MaxLightTime, false);
 }
 
