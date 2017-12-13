@@ -37,7 +37,13 @@ public:
 	void HitByMoth();
 
 	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	bool HitByCrow();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
 	void ResetLightTimer();
+
+	UFUNCTION(BlueprintCallable, Category = "Prometheus")
+	void TeleportPlayerToLastTouchedTorch();
 
 protected:
 	// Called when the game starts or when spawned

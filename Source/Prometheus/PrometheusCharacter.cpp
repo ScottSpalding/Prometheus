@@ -2,6 +2,9 @@
 
 #include "PrometheusCharacter.h"
 
+#include "MyGameStateBase.h"
+#include "Torch.h"
+
 #include "Components/PointLightComponent.h"
 #include "Public/TimerManager.h"
 
@@ -38,7 +41,7 @@ void APrometheusCharacter::TouchedTorch() {
 }
 
 void APrometheusCharacter::HitByMoth() {
-	UE_LOG(LogTemp, Warning, TEXT("Hit!"))
+	UE_LOG(LogTemp, Warning, TEXT("Hit moth!"))
 	float timerRemaining = GetWorldTimerManager().GetTimerRemaining(PrometheusTimerHandle);
 	const float damageAmountToTimer = 2.0f;
 	if (timerRemaining <= damageAmountToTimer) {
@@ -49,6 +52,19 @@ void APrometheusCharacter::HitByMoth() {
 		UE_LOG(LogTemp, Warning, TEXT("Losing light!  Was %f, is now %f"), timerRemaining, (timerRemaining - damageAmountToTimer))
 		GetWorldTimerManager().SetTimer(PrometheusTimerHandle, this, &APrometheusCharacter::LightsOut, timerRemaining - damageAmountToTimer, false);
 	}
+}
+
+bool APrometheusCharacter::HitByCrow() {
+	UE_LOG(LogTemp, Warning, TEXT("Hit crow!"))
+	float remainingLightPercent = GetLightPercent();
+	UE_LOG(LogTemp, Warning, TEXT("Light remaining: %f"), remainingLightPercent)
+	if (remainingLightPercent > .75) {
+		return true;
+	}
+	else if (remainingLightPercent < 0.001) {
+		TeleportPlayerToLastTouchedTorch();
+	}
+	return false;
 }
 
 // Called every frame
@@ -72,6 +88,16 @@ void APrometheusCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 void APrometheusCharacter::ResetLightTimer() {
 	GetWorldTimerManager().SetTimer(PrometheusTimerHandle, this, &APrometheusCharacter::LightsOut, MaxLightTime, false);
+}
+
+void APrometheusCharacter::TeleportPlayerToLastTouchedTorch() {
+	AMyGameStateBase* currentGameState = Cast<AMyGameStateBase>(GetWorld()->GetGameState());
+	if (currentGameState) {
+		TeleportTo(currentGameState->GetLastTorchTouched()->GetActorLocation(), FRotator(0,0,0));
+		ResetLightTimer();
+	} else {
+		UE_LOG(LogTemp, Warning, TEXT("We have an unexpected game state or the game state is missing!"))
+	}
 }
 
 void APrometheusCharacter::LightsOut() {
