@@ -61,7 +61,7 @@ bool APrometheusCharacter::HitByCrow() {
 	if (remainingLightPercent > .75) {
 		return true;
 	}
-	else if (remainingLightPercent < 0.001) {
+	else if (remainingLightPercent < 0.07) {
 		TeleportPlayerToLastTouchedTorch();
 	}
 	return false;
